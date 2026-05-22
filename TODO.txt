@@ -1,0 +1,111 @@
+AI SAYS 
+
+ERROR LIST
+- if you put anything else then choices in menu it crashes
+- when adding user if username is longer then limit it only gets until limit then cuts the rest
+
+CORE FEATURES
+-------------
+1 - check if username already exists ==== DONE ====
+2 - delete user ==== DONE ====
+3 - edit user delete user ==== DONE ====
+4 - add roles ==== DONE ====
+5 - only admin role can add delete or edit users  ==== DONE ====
+6 - list users ==== DONE ====
+7 - search user ==== DONE ====
+8 - failed login limit ==== DONE ====
+9 - password validation
+10 - password hashing
+11 - last login info = FOR ADMIN MENU =
+12 - account lock system = FOR ADMIN MENU =
+13 - log system = FOR ADMIN MENU =
+
+
+CODE QUALITY
+------------
+13 - split project into modules (.c / .h) ==== DONE ====
+14 - create User struct ==== DONE ====
+15 - improve input validation
+16 - replace scanf with fgets
+17 - error handling system
+18 - create utility functions
+19 - remove duplicated code
+20 - dynamic memory practice (malloc/free)
+
+
+FILE SYSTEM
+-----------
+21 - backup users.txt
+22 - export users
+23 - import users
+24 - temporary file system for edits
+25 - configurable file paths
+26 - separate logs.txt
+27 - separate config.txt
+
+
+ADMIN FEATURES
+--------------
+28 - admin-only menu
+29 - permission checks
+30 - change user role
+31 - disable/enable user
+32 - reset password
+33 - user statistics
+34 - count failed logins
+
+
+SECURITY
+--------
+35 - hidden password input
+36 - session system
+37 - auto logout after inactivity
+38 - password retry cooldown
+39 - detect duplicate accounts
+40 - sanitize user input
+
+
+ADVANCED C FEATURES
+-------------------
+41 - linked list user storage
+42 - binary file version
+43 - sorting users
+44 - save/load structs
+45 - enums for roles
+46 - function pointers practice
+47 - command parser
+48 - custom string library practice
+
+
+NETWORKING (NEXT LEVEL)
+-----------------------
+49 - tcp login server
+50 - tcp client
+51 - multi-client support
+52 - send login requests over network
+53 - server logs
+54 - simple chat between users
+
+
+LINUX / TOOLING
+---------------
+55 - Makefile
+56 - gcc warning flags
+57 - valgrind memory checks
+58 - git + github
+59 - README.md
+60 - project folder structure
+
+
+BONUS
+-----
+61 - sqlite version
+62 - ncurses terminal ui
+63 - colored terminal output
+64 - command history
+65 - mini shell commands
+66 - json export
+67 - unit tests
+68 - benchmark login speed
+69 - dockerize project
+70 - build for linux + windows

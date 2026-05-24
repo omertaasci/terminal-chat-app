@@ -14,11 +14,8 @@ CORE FEATURES
 6 - list users ==== DONE ====
 7 - search user ==== DONE ====
 8 - failed login limit ==== DONE ====
-9 - password validation
-10 - password hashing
-11 - last login info = FOR ADMIN MENU =
-12 - account lock system = FOR ADMIN MENU =
-13 - log system = FOR ADMIN MENU =
+9 - chat system
+10 - log system 
 
 
 CODE QUALITY
@@ -46,19 +43,19 @@ FILE SYSTEM
 
 ADMIN FEATURES
 --------------
-28 - admin-only menu
-29 - permission checks
+28 - admin-only menu ==== DONE ====
+29 - permission checks ==== DONE ====
 30 - change user role
 31 - disable/enable user
 32 - reset password
 33 - user statistics
-34 - count failed logins
+34 - count failed logins ==== DONE ====
 
 
 SECURITY
 --------
-35 - hidden password input
-36 - session system
+35 - hidden password input ==== DONE ====
+36 - session system ==== DONE ====
 37 - auto logout after inactivity
 38 - password retry cooldown
 39 - detect duplicate accounts

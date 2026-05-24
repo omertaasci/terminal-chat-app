@@ -5,14 +5,7 @@
 
 #include "auth.h"
 #include "user.h"
-
-// fixed values
-#define MAX_USERNAME 20
-#define MAX_PASSWORD 20
-#define MAX_LINE 100
-#define MAX_ATTEMPTS 3
-#define USER_SCAN "19"
-#define PASS_SCAN "19"
+#include "config.h"
 
 bool userNameExists(char userName[]) { // this function checks if the username already exists
     FILE *file; // declaring the file
@@ -29,7 +22,7 @@ bool userNameExists(char userName[]) { // this function checks if the username a
     {
         User fileUser;
 
-        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%9s", fileUser.userName, fileUser.password, fileUser.role); // scans the file for the user
+        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
         if (strcmp(userName, fileUser.userName) == 0) // if username is matching with any username from the file which is fileUser
         {
             fclose(file);
@@ -57,7 +50,7 @@ bool checkPassword(char userName[], char userPassword[]) { // checks if the pass
     while (fgets(line, sizeof(line), file)) { // fgets reads a line from the file. fgets([where to store], [max size], [from which file]);
         User fileUser;
 
-        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%9s", fileUser.userName, fileUser.password, fileUser.role); // scans the file for the user
+        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
         // sscanf reads the data from text
         // [^:] means read until ':'
         // USER_SCAN and PASS_SCAN is the limit for scanning which is -1 from the normal limit(20)
@@ -119,7 +112,7 @@ bool login(User *currentUser) {
         while (fgets(line, sizeof(line), file)) { // fgets reads a line from the file. fgets([where to store], [max size], [from which file]);
             User fileUser;
 
-            sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%9s", fileUser.userName, fileUser.password, fileUser.role); // scans the file for the user
+            sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
             // sscanf reads the data from text
             // [^:] means read until ':'
             // USER_SCAN and PASS_SCAN is the limit for scanning which is -1 from the normal limit(20)
@@ -128,13 +121,13 @@ bool login(User *currentUser) {
 
             if (strcmp(currentUser->userName, fileUser.userName) == 0) // strcmp means string compare
             {
-                strcpy(currentUser->role, fileUser.role);
+                currentUser->role = fileUser.role;
             }
         }
 
         fclose(file);
 
-        printf("\nWelcome, %s [%s]", currentUser->userName, currentUser->role);
+        printf("\nWelcome, %s [%s]", currentUser->userName, getRoleName(currentUser->role));
         printf("\nPress any key...");
         _getch();
         return true;

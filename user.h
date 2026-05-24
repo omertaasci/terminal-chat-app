@@ -3,11 +3,17 @@
 
 #include "config.h"
 
+typedef enum
+{
+    ROLE_USER,
+    ROLE_ADMIN
+} Role;
+
 typedef struct 
 {
     char userName[MAX_USERNAME];
     char password[MAX_PASSWORD];
-    char role[10];
+    Role role;
 } User;
 
 
@@ -17,5 +23,6 @@ void editUser();
 void listUsers();
 void searchUser();
 
+const char* getRoleName(Role role);
 
 #endif

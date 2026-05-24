@@ -4,7 +4,9 @@
 #define MAX_USERNAME 20
 #define MAX_PASSWORD 20
 #define MAX_LINE 100
+#define MAX_LINE_CHAT 300
 #define MAX_ATTEMPTS 3
+#define MAX_TEXT 200
 
 
 #define USER_SCAN "19"

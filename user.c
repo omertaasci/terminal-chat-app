@@ -7,6 +7,10 @@
 #include "config.h"
 #include "auth.h"
 
+const char* getRoleName(Role role)
+{
+    return role == ROLE_ADMIN ? "ADMIN" : "USER";
+}
 
 void addUser() {
     // adding user
@@ -25,7 +29,7 @@ void addUser() {
     printf("Password : ");
     getPassword(newUser.password);
 
-    strcpy(newUser.role, "user");
+    newUser.role = ROLE_USER;
 
     FILE *file = fopen("users.txt", "a");
 
@@ -35,7 +39,7 @@ void addUser() {
         return;
     }
     
-    fprintf(file, "%s:%s:%s\n", newUser.userName, newUser.password, newUser.role); // adding user to file
+    fprintf(file, "%s:%s:%d\n", newUser.userName, newUser.password, newUser.role); // adding user to file
     printf("\nAdded Username : %s\nAdded Password : %s\n", newUser.userName, newUser.password);
     fclose(file);
     printf("User added succesfully!\n");
@@ -67,7 +71,7 @@ void editUser() {
     {
         User fileUser;
 
-        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%9s", fileUser.userName, fileUser.password, fileUser.role); // scans the file for the user
+        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
         if (strcmp(userToEdit, fileUser.userName) == 0)
         {
             char approve;
@@ -94,7 +98,7 @@ void editUser() {
             if (approve == 'y' || approve == 'Y')
             {
                 printf("Changed User : [%s] ---> [%s]\n", userToEdit, newUserName);
-                fprintf(tempFile, "%s:%s:%s\n", newUserName, fileUser.password, fileUser.role);
+                fprintf(tempFile, "%s:%s:%d\n", newUserName, fileUser.password, fileUser.role);
             }
             else{
                 // cancelled -> keep user
@@ -151,7 +155,7 @@ void deleteUser() {
     {
         User fileUser;
 
-        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%9s", fileUser.userName, fileUser.password, fileUser.role); // scans the file for the user
+        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
         if (strcmp(userToDelete, fileUser.userName) == 0)
         {
             char approve;
@@ -212,8 +216,8 @@ void listUsers() { // just lists the whole file for usernames
     {
         User fileUser;
 
-        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%9s", fileUser.userName, fileUser.password, fileUser.role); // scans the file for the user
-        printf("%s [%s]\n", fileUser.userName, fileUser.role);
+        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
+        printf("%s [%s]\n", fileUser.userName, getRoleName(fileUser.role));
     }
     fclose(file);
 
@@ -242,10 +246,10 @@ void searchUser() { // justs searches
     {
         User fileUser;
 
-        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%9s", fileUser.userName, fileUser.password, fileUser.role); // scans the file for the user
+        sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
         if (strcmp(userToSearch, fileUser.userName) == 0)
         {
-            printf("Found User : [%s] [%s]", fileUser.userName, fileUser.role);
+            printf("Found User : [%s] [%s]", fileUser.userName, getRoleName(fileUser.role));
         }
     }
     fclose(file);

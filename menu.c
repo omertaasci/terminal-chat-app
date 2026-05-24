@@ -5,10 +5,12 @@
 
 #include "menu.h"
 #include "user.h"
+#include "chat.h"
 
 int showMenu(User currentUser) { // basicly returns the choice as int
     int choice;
-    bool isAdmin = strcmp(currentUser.role, "admin") == 0;
+    bool isAdmin = currentUser.role == ROLE_ADMIN;
+    
     system("cls");
 
     if (isAdmin)
@@ -47,7 +49,7 @@ int showMenu(User currentUser) { // basicly returns the choice as int
 
 
 void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
-    bool isAdmin = strcmp(currentUser.role, "admin") == 0;
+    bool isAdmin = currentUser.role == ROLE_ADMIN;
 
     if (isAdmin)
     {
@@ -73,6 +75,7 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
             case 4:
                 system("cls");
                 printf("\n==== Public Chat ====\n\n");
+                joinChat(currentUser);
                 break;
             case 5:
                 system("cls");
@@ -110,6 +113,7 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
             case 1:
                 system("cls");
                 printf("\n==== Public Chat ====\n\n");
+                joinChat(currentUser);
                 break;
             case 2:
                 system("cls");

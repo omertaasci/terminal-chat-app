@@ -11,6 +11,7 @@ typedef struct
 {
     char sender[MAX_USERNAME];
     char text[MAX_TEXT];
+    char time[10];
 } Message;
 
 

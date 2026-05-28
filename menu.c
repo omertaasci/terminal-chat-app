@@ -2,13 +2,16 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h>
 
 #include "menu.h"
 #include "user.h"
 #include "chat.h"
 
 int showMenu(User currentUser) { // basicly returns the choice as int
+    char input[32];
     int choice;
+
     bool isAdmin = currentUser.role == ROLE_ADMIN;
     
     system("cls");
@@ -26,8 +29,12 @@ int showMenu(User currentUser) { // basicly returns the choice as int
         printf("8 - Exit Program\n");
         printf("Choice : ");
 
-        scanf("%d", &choice);
+        //scanf("%d", &choice);
         //printf("choice memory location : %p\n", (void*)&choice);
+
+        fgets(input, sizeof(input), stdin);
+        choice = (int)strtol(input, NULL, 10);
+        
         return choice; 
     }
     else
@@ -40,8 +47,13 @@ int showMenu(User currentUser) { // basicly returns the choice as int
         printf("5 - Exit Program\n");
         printf("Choice : ");
 
-        scanf("%d", &choice);
+        //scanf("%d", &choice);
         //printf("choice memory location : %p\n", (void*)&choice);
+
+        fgets(input, sizeof(input), stdin);
+
+        choice = (int)strtol(input, NULL, 10); // converts string input to int choice
+
         return choice;
     }
     
@@ -93,6 +105,8 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
                 system("cls");
                 printf("Logged out\n");
                 *logged = false; // changes the original variable in the memory
+                printf("\nPress any key...");
+                _getch();
                 break;
 
             case 8:
@@ -104,6 +118,9 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
 
             default:
                 printf("Invalid choice!\n");
+
+                printf("\nPress any key...");
+                _getch();
         }
     }
     else

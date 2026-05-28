@@ -7,6 +7,7 @@
 #include "config.h"
 
 int main(){
+    
 
     User currentUser; // logged will pass this to login function
 
@@ -25,6 +26,8 @@ int main(){
                 failedLoginCounter++;
 
                 printf("Attempts : %d\n", failedLoginCounter);
+                printf("\nPress any key...");
+                _getch();
 
                 if(failedLoginCounter >= MAX_ATTEMPTS) { // max MAX_ATTEMPTS is value given from config values as all other capital letter values
                     printf("Too many failed attempts!\nTIMEOUT PROGRAM IS CLOSED!\n");

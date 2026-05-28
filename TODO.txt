@@ -4,6 +4,7 @@ ERROR LIST
 - if you put anything else then choices in menu it crashes
 - when adding user if username is longer then limit it only gets until limit then cuts the rest
 
+
 CORE FEATURES
 -------------
 1 - check if username already exists ==== DONE ====

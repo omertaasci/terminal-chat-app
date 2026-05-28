@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <conio.h>
+#include <stdlib.h>
 
 #include "auth.h"
 #include "user.h"
@@ -91,13 +92,17 @@ void getPassword(char password[]) { // function for getting password
 bool login(User *currentUser) {
 
     char password[MAX_PASSWORD];
+
+    system("cls");
     
     printf("Username : ");
-    scanf("%" USER_SCAN "s", currentUser->userName); // %USER_SCANs makes sure its until 19 bc max is [20] and last will be '\0'
+    //scanf("%" USER_SCAN "s", currentUser->userName); // %USER_SCANs makes sure its until 19 bc max is [20] and last will be '\0'
+    fgets(currentUser->userName, sizeof(currentUser->userName), stdin);
+    currentUser->userName[strcspn(currentUser->userName, "\n")] = '\0';
 
     if (!userNameExists(currentUser->userName))
     {
-        printf("Username doest not exists!");
+        printf("Username doest not exists!\n");
         return false;
     }
     

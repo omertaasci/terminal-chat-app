@@ -1,15 +1,4 @@
 admin:31:1
 Anya:31:0
-asda:asd:0
-asdasdasd:qweqe:0
-qwdqwdsad:adasdasd:0
-Yeni:31:0
-yarraaa:askina:0
-Contact(1):31:0
-Dassakucgenipezeven:31cekenoc:0
-asd:sss:0
-aaaaaaaaaaaaaaaaaaa:1:0
-yeniadam:22:0
-ibne:gay:0
 Szarka:Anya14:0
-trial:w:0
+dennim:test:0

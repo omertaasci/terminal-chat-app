@@ -9,7 +9,7 @@
 
 const char* getRoleName(Role role)
 {
-    return role == ROLE_ADMIN ? "ADMIN" : "USER";
+    return role == ROLE_ADMIN ? "ADMIN" : "USER"; // if role is admin return ADMIN else return USER
 }
 
 void addUser() {
@@ -17,12 +17,34 @@ void addUser() {
     User newUser;
 
     printf("Username : ");
-    scanf("%" USER_SCAN "s", newUser.userName);
+    //scanf("%" USER_SCAN "s", newUser.userName);
     
+    // cleaning the buffer
+    //int c;
+    //while ((c = getchar()) != '\n' && c != EOF);
+
+    fgets(newUser.userName, sizeof(newUser.userName), stdin);
+    newUser.userName[strcspn(newUser.userName, "\n")] = '\0';
+    
+    // username lenght checking
+    if (strlen(newUser.userName) >= MAX_USERNAME - 1)
+    {
+        printf("Username too long!");
+
+        printf("\nPress any key...");
+        _getch();
+
+        return;
+    }
+        
     // CHECK IF USERNAME EXISTS
     if (userNameExists(newUser.userName))
     {
         printf("This user already exists!");
+
+        printf("\nPress any key...");
+        _getch();
+
         return;
     }
 
@@ -54,7 +76,9 @@ void editUser() {
     char line[MAX_LINE];
 
     printf("Which user do you want to edit? : ");
-    scanf("%" USER_SCAN "s", userToEdit);
+    //scanf("%" USER_SCAN "s", userToEdit);
+    fgets(userToEdit, sizeof(userToEdit), stdin);
+    userToEdit[strcspn(userToEdit, "\n")] = '\0';
 
     FILE *file = fopen("users.txt", "r");
     FILE *tempFile = fopen("temp.txt", "w");
@@ -74,13 +98,16 @@ void editUser() {
         sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
         if (strcmp(userToEdit, fileUser.userName) == 0)
         {
-            char approve;
+            char approve[8];
             char newUserName[MAX_USERNAME];
 
             found = true;
 
             printf("New Username : ");
-            scanf("%" USER_SCAN "s", newUserName);
+            //scanf("%" USER_SCAN "s", newUserName);
+            
+            fgets(newUserName, sizeof(newUserName), stdin);
+            newUserName[strcspn(newUserName, "\n")] = '\0';
 
             if (userNameExists(newUserName))
             {
@@ -92,10 +119,11 @@ void editUser() {
             
 
             printf("ARE YOU SURE ABOUT THE CHANGE Y/N ?   [%s] ---> [%s]\n", userToEdit, newUserName);
-            scanf(" %c", &approve);
+            //scanf(" %c", &approve);
+            fgets(approve, sizeof(approve), stdin);
 
             // if approved -> add to the file
-            if (approve == 'y' || approve == 'Y')
+            if (approve[0] == 'y' || approve[0] == 'Y')
             {
                 printf("Changed User : [%s] ---> [%s]\n", userToEdit, newUserName);
                 fprintf(tempFile, "%s:%s:%d\n", newUserName, fileUser.password, fileUser.role);
@@ -138,7 +166,9 @@ void deleteUser() {
     char line[MAX_LINE];
 
     printf("Which user do you want to delete? : ");
-    scanf("%" USER_SCAN "s", userToDelete);
+    //scanf("%" USER_SCAN "s", userToDelete);
+    fgets(userToDelete, sizeof(userToDelete), stdin);
+    userToDelete[strcspn(userToDelete, "\n")] = '\0';
 
     FILE *file = fopen("users.txt", "r");
     FILE *tempFile = fopen("temp.txt", "w");
@@ -158,14 +188,15 @@ void deleteUser() {
         sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
         if (strcmp(userToDelete, fileUser.userName) == 0)
         {
-            char approve;
+            char approve[8];
             found = true;
 
             printf("THIS USER WILL BE DELETED ARE YOU SURE Y/N?   [%s]\n", userToDelete);
-            scanf(" %c", &approve);
+            //scanf(" %c", &approve);
+            fgets(approve, sizeof(approve), stdin);
 
             // if approved -> skip writing to temp file
-            if (approve == 'y' || approve == 'Y')
+            if (approve[0] == 'y' || approve[0] == 'Y')
             {
                 printf("Deleted user : %s", userToDelete);
             }
@@ -231,7 +262,9 @@ void searchUser() { // justs searches
     char userToSearch[MAX_USERNAME];
 
     printf("Which user do you want to search? : ");
-    scanf("%" USER_SCAN "s", userToSearch);
+    //scanf("%" USER_SCAN "s", userToSearch);
+    fgets(userToSearch, sizeof(userToSearch), stdin);
+    userToSearch[strcspn(userToSearch, "\n")] = '\0';
 
     FILE *file = fopen("users.txt", "r");
 

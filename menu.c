@@ -7,6 +7,7 @@
 #include "menu.h"
 #include "user.h"
 #include "chat.h"
+#include "auth.h"
 
 int showMenu(User currentUser) { // basicly returns the choice as int
     char input[32];
@@ -104,6 +105,7 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
                 system("cls");
                 printf("Logged out\n");
                 *logged = false; // changes the original variable in the memory
+                writeLog("LOGOUT", currentUser.userName);
                 printf("\nPress any key...");
                 _getch();
                 break;
@@ -111,6 +113,7 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
             case 8:
                 system("cls");
                 printf("Program Closed\n");
+                writeLog("LOGOUT", currentUser.userName);
                 *running = false; // changes the original variable in the memory 
                 *logged = false; // changes the original variable in the memory 
                 break;
@@ -146,12 +149,17 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
             case 4:
                 system("cls");
                 printf("Logged out\n");
+                writeLog("LOGOUT", currentUser.userName);
                 *logged = false; // changes the original variable in the memory
+                writeLog("LOGOUT", currentUser.userName);
+                printf("\nPress any key...");
+                _getch();
                 break;
 
             case 5:
                 system("cls");
                 printf("Program Closed\n");
+                writeLog("LOGOUT", currentUser.userName);
                 *running = false; // changes the original variable in the memory 
                 *logged = false; // changes the original variable in the memory 
                 break;

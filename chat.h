@@ -4,6 +4,8 @@
 #include "config.h"
 #include "user.h"
 
+void joinChat(User currentUser);
+
 typedef struct 
 {
     char sender[MAX_USERNAME];

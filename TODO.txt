@@ -4,7 +4,7 @@ ERROR LIST
 - if you put anything else then choices in menu it crashes ==== FIXED ====
 - when adding user if username is longer then limit it only gets until limit then cuts the rest ==== FIXED ====
 
-29/05/2026 ---->>> DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT :)
+29/05/2026 ---->>> DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT :) ==== DONE ====
 
 
 CORE FEATURES
@@ -18,7 +18,7 @@ CORE FEATURES
 7 - search user ==== DONE ====
 8 - failed login limit ==== DONE ====
 9 - chat system
-10 - log system 
+10 - log system ==== DONE ====
 
 
 CODE QUALITY

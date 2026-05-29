@@ -3,10 +3,27 @@
 #include <stdbool.h>
 #include <conio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "auth.h"
 #include "user.h"
 #include "config.h"
+
+
+void writeLog(const char *message, const char *userName) // log system
+{
+    FILE *logFile = fopen("log.txt", "a");
+
+    if (logFile == NULL)
+        return;
+
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+
+    fprintf(logFile,"%s : %s [%02d:%02d:%02d]\n", message, userName, t->tm_hour,t->tm_min, t->tm_sec);
+
+    fclose(logFile);
+}
 
 bool userNameExists(char userName[]) { // this function checks if the username already exists
     FILE *file; // declaring the file
@@ -104,6 +121,7 @@ bool login(User *currentUser) {
     if (!userNameExists(currentUser->userName))
     {
         printf("Username doest not exists!\n");
+        writeLog("INVALID USERNAME", currentUser->userName);
         return false;
     }
     
@@ -132,14 +150,16 @@ bool login(User *currentUser) {
         }
 
         fclose(file);
-
+        
         printf("\nWelcome, %s [%s]", currentUser->userName, getRoleName(currentUser->role));
+        writeLog("LOGIN SUCCESS", currentUser->userName);
         printf("\nPress any key...");
         _getch();
         return true;
     }
     
     printf("\nIncorrect password!");
+    writeLog("WRONG PASSWORD", currentUser->userName);
     printf("\nPress any key...");
     _getch();
     return false;

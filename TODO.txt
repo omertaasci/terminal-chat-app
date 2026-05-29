@@ -1,8 +1,10 @@
 AI SAYS 
 
 ERROR LIST
-- if you put anything else then choices in menu it crashes
-- when adding user if username is longer then limit it only gets until limit then cuts the rest
+- if you put anything else then choices in menu it crashes ==== FIXED ====
+- when adding user if username is longer then limit it only gets until limit then cuts the rest ==== FIXED ====
+
+29/05/2026 ---->>> DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT :)
 
 
 CORE FEATURES
@@ -23,8 +25,8 @@ CODE QUALITY
 ------------
 13 - split project into modules (.c / .h) ==== DONE ====
 14 - create User struct ==== DONE ====
-15 - improve input validation
-16 - replace scanf with fgets
+15 - improve input validation ==== DONE ====
+16 - replace scanf with fgets ==== DONE ====
 17 - error handling system
 18 - create utility functions
 19 - remove duplicated code

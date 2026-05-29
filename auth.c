@@ -10,7 +10,7 @@
 
 bool userNameExists(char userName[]) { // this function checks if the username already exists
     FILE *file; // declaring the file
-    char line[MAX_LINE]; // this string stores one line from the file temporarily for example first stores 1st line admin:31 then changes to 2nd line test:31 etc
+    char line[MAX_LINE]; // this string stores one line from the file temporarily. for example first stores 1st line admin:31 then changes to 2nd line test:31 etc
 
     file = fopen("users.txt", "r"); // opening users.txt with read permission
 
@@ -52,7 +52,7 @@ bool checkPassword(char userName[], char userPassword[]) { // checks if the pass
         User fileUser;
 
         sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
-        // sscanf reads the data from text
+        // sscanf reads the data from string
         // [^:] means read until ':'
         // USER_SCAN and PASS_SCAN is the limit for scanning which is -1 from the normal limit(20)
         // because last character needs to be \0 
@@ -71,21 +71,21 @@ bool checkPassword(char userName[], char userPassword[]) { // checks if the pass
 
 //GET PASSWORD
 void getPassword(char password[]) { // function for getting password
-    int i = 0;
+    int charIndex = 0;
     char ch;
 
     while((ch = _getch()) != '\r') { // writes every character to the ch until pressed enter('\r')
-        if(ch == '\b' && i > 0) { // if pressed backspace'\b' and index is not 0 
-            i--; // decrease the index
+        if(ch == '\b' && charIndex > 0) { // if pressed backspace'\b' and index is not 0 
+            charIndex--; // decrease the index
             printf("\b \b"); // removes the last '*' from the screen
         }
-        else if(i < MAX_PASSWORD - 1) { // bc last character will be '\0' we need to make sure its less than 19 because its password[20]
-            password[i++] = ch; // assings the character from ch to the password
+        else if(charIndex < MAX_PASSWORD - 1) { // bc last character will be '\0' we need to make sure its less than 19 because its password[20]
+            password[charIndex++] = ch; // assings the character from ch to the password
             printf("*"); // prints *
         }
     }
 
-    password[i] = '\0'; // puts '\0' so it can understand where the string ends
+    password[charIndex] = '\0'; // puts '\0' so it can understand where the string ends
 }
 
 // LOGIN
@@ -97,8 +97,9 @@ bool login(User *currentUser) {
     
     printf("Username : ");
     //scanf("%" USER_SCAN "s", currentUser->userName); // %USER_SCANs makes sure its until 19 bc max is [20] and last will be '\0'
-    fgets(currentUser->userName, sizeof(currentUser->userName), stdin);
-    currentUser->userName[strcspn(currentUser->userName, "\n")] = '\0';
+
+    fgets(currentUser->userName, sizeof(currentUser->userName), stdin); // reads username input from keyboard (stdin)
+    currentUser->userName[strcspn(currentUser->userName, "\n")] = '\0'; // removes '\n' added by fgets and replaces it with '\0' to end the string
 
     if (!userNameExists(currentUser->userName))
     {

@@ -23,11 +23,13 @@ void addUser() {
     //int c;
     //while ((c = getchar()) != '\n' && c != EOF);
 
-    fgets(newUser.userName, sizeof(newUser.userName), stdin);
-    newUser.userName[strcspn(newUser.userName, "\n")] = '\0';
+    fgets(newUser.userName, sizeof(newUser.userName), stdin); // getting input from user fgets([where to store], [max size], [from which file]) stdin means keyboard
+    newUser.userName[strcspn(newUser.userName, "\n")] = '\0'; // this removes the \n in the end because fgets stores the enter in the string and puts \0 to end string
+    //strcspn finds the index of "\n"
+    // then we replace '\n' with '\0' to properly end the string
     
     // username lenght checking
-    if (strlen(newUser.userName) >= MAX_USERNAME - 1)
+    if (strlen(newUser.userName) >= MAX_USERNAME - 1) // if username lenght is longer or equal to limit
     {
         printf("Username too long!");
 
@@ -51,7 +53,7 @@ void addUser() {
     printf("Password : ");
     getPassword(newUser.password);
 
-    newUser.role = ROLE_USER;
+    newUser.role = ROLE_USER; // every new user is automaticly given ROLE_USER
 
     FILE *file = fopen("users.txt", "a");
 
@@ -77,8 +79,8 @@ void editUser() {
 
     printf("Which user do you want to edit? : ");
     //scanf("%" USER_SCAN "s", userToEdit);
-    fgets(userToEdit, sizeof(userToEdit), stdin);
-    userToEdit[strcspn(userToEdit, "\n")] = '\0';
+    fgets(userToEdit, sizeof(userToEdit), stdin); // getting username from keyboard
+    userToEdit[strcspn(userToEdit, "\n")] = '\0'; // removing enter end put \0
 
     FILE *file = fopen("users.txt", "r");
     FILE *tempFile = fopen("temp.txt", "w");
@@ -91,14 +93,14 @@ void editUser() {
 
     bool found = false;
 
-    while (fgets(line, sizeof(line), file))
+    while (fgets(line, sizeof(line), file)) // reads the file line by line
     {
         User fileUser;
 
         sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
-        if (strcmp(userToEdit, fileUser.userName) == 0)
+        if (strcmp(userToEdit, fileUser.userName) == 0) // checking if usernames match
         {
-            char approve[8];
+            char approve[8]; // fgets reads strings, not a single char
             char newUserName[MAX_USERNAME];
 
             found = true;
@@ -120,7 +122,7 @@ void editUser() {
 
             printf("ARE YOU SURE ABOUT THE CHANGE Y/N ?   [%s] ---> [%s]\n", userToEdit, newUserName);
             //scanf(" %c", &approve);
-            fgets(approve, sizeof(approve), stdin);
+            fgets(approve, sizeof(approve), stdin); // gettin input from keyboard for approve
 
             // if approved -> add to the file
             if (approve[0] == 'y' || approve[0] == 'Y')
@@ -135,7 +137,7 @@ void editUser() {
             }
         }
 
-        else
+        else // if usernames doesnt match, keep the user unchanged
         {
             fprintf(tempFile, "%s", line);
         }
@@ -157,7 +159,8 @@ void editUser() {
     printf("\nPress any key...");
     _getch();
 
-    // basicly creates a temporary file and adds the edited user to this file with all other users and removes the original and changes the name of the temp file to original one :)
+    // basicly creates a temporary file and adds the edited user to this file with all other users and removes the original
+    // and changes the name of the temp file to original one :)
 
 }
 
@@ -167,8 +170,9 @@ void deleteUser() {
 
     printf("Which user do you want to delete? : ");
     //scanf("%" USER_SCAN "s", userToDelete);
-    fgets(userToDelete, sizeof(userToDelete), stdin);
-    userToDelete[strcspn(userToDelete, "\n")] = '\0';
+
+    fgets(userToDelete, sizeof(userToDelete), stdin); // getting input from keyboard
+    userToDelete[strcspn(userToDelete, "\n")] = '\0'; // removing \n and adds \0 to end of the string
 
     FILE *file = fopen("users.txt", "r");
     FILE *tempFile = fopen("temp.txt", "w");
@@ -186,14 +190,14 @@ void deleteUser() {
         User fileUser;
 
         sscanf(line, "%" USER_SCAN "[^:]:%" PASS_SCAN "[^:]:%d", fileUser.userName, fileUser.password, &fileUser.role); // scans the file for the user
-        if (strcmp(userToDelete, fileUser.userName) == 0)
+        if (strcmp(userToDelete, fileUser.userName) == 0) // checks if the usernames match
         {
-            char approve[8];
+            char approve[8]; // fgets reads strings, not a single char
             found = true;
 
             printf("THIS USER WILL BE DELETED ARE YOU SURE Y/N?   [%s]\n", userToDelete);
             //scanf(" %c", &approve);
-            fgets(approve, sizeof(approve), stdin);
+            fgets(approve, sizeof(approve), stdin); // reads input from the keyboard(stdin) to store in approve
 
             // if approved -> skip writing to temp file
             if (approve[0] == 'y' || approve[0] == 'Y')
@@ -207,7 +211,7 @@ void deleteUser() {
             }
         }
 
-        else
+        else // if usernames doesnt match, keep the user
         {
             fprintf(tempFile, "%s", line);
         }
@@ -263,8 +267,9 @@ void searchUser() { // justs searches
 
     printf("Which user do you want to search? : ");
     //scanf("%" USER_SCAN "s", userToSearch);
-    fgets(userToSearch, sizeof(userToSearch), stdin);
-    userToSearch[strcspn(userToSearch, "\n")] = '\0';
+
+    fgets(userToSearch, sizeof(userToSearch), stdin); // reads input from keyboard(stdin) to store in userToSearch
+    userToSearch[strcspn(userToSearch, "\n")] = '\0'; // removes the \n and puts \0 in the end of the string
 
     FILE *file = fopen("users.txt", "r");
 

@@ -32,8 +32,8 @@ int showMenu(User currentUser) { // basicly returns the choice as int
         //scanf("%d", &choice);
         //printf("choice memory location : %p\n", (void*)&choice);
 
-        fgets(input, sizeof(input), stdin);
-        choice = (int)strtol(input, NULL, 10);
+        fgets(input, sizeof(input), stdin); // stores the input from keyboard(stdin)
+        choice = (int)strtol(input, NULL, 10); // converts the string input to int choice
         
         return choice; 
     }
@@ -50,8 +50,7 @@ int showMenu(User currentUser) { // basicly returns the choice as int
         //scanf("%d", &choice);
         //printf("choice memory location : %p\n", (void*)&choice);
 
-        fgets(input, sizeof(input), stdin);
-
+        fgets(input, sizeof(input), stdin); // stores the input from keyboard(stdin)
         choice = (int)strtol(input, NULL, 10); // converts string input to int choice
 
         return choice;

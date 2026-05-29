@@ -30,7 +30,7 @@ int main(){
                 _getch();
 
                 if(failedLoginCounter >= MAX_ATTEMPTS) { // max MAX_ATTEMPTS is value given from config values as all other capital letter values
-                    printf("Too many failed attempts!\nTIMEOUT PROGRAM IS CLOSED!\n");
+                    printf("\nToo many failed attempts!\nTIMEOUT PROGRAM IS CLOSED!");
                     printf("\nPress any key...");
                     _getch();
                     running = false; // it will close the program

@@ -5,6 +5,7 @@ ERROR LIST
 - when adding user if username is longer then limit it only gets until limit then cuts the rest ==== FIXED ====
 
 29/05/2026 ---->>> DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT :) ==== DONE ====
+01/06/2026 ---->>> DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT, if possible complete the chat system
 
 
 CORE FEATURES
@@ -62,7 +63,7 @@ SECURITY
 37 - auto logout after inactivity
 38 - password retry cooldown
 39 - detect duplicate accounts
-40 - sanitize user input
+40 - sanitize user input ==== DONE ====
 
 
 ADVANCED C FEATURES

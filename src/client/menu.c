@@ -6,8 +6,8 @@
 
 #include "menu.h"
 #include "user.h"
-#include "chat.h"
 #include "auth.h"
+#include "chat.h"
 
 int showMenu(User currentUser) { // basicly returns the choice as int
     char input[32];
@@ -24,10 +24,11 @@ int showMenu(User currentUser) { // basicly returns the choice as int
         printf("2 - Edit User [ADMIN MODE]\n");
         printf("3 - Delete User [ADMIN MODE]\n");
         printf("4 - Join Public Chat\n");
-        printf("5 - List Users\n");
-        printf("6 - Search User\n");
-        printf("7 - Logout\n");
-        printf("8 - Exit Program\n");
+        printf("5 - Start Server\n");
+        printf("6 - List Users\n");
+        printf("7 - Search User\n");
+        printf("8 - Logout\n");
+        printf("9 - Exit Program\n");
         printf("Choice : ");
 
         //scanf("%d", &choice);
@@ -86,22 +87,25 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
                 break;
             case 4:
                 system("cls");
-                printf("\n==== Public Chat ====\n\n");
-                joinChat(currentUser);
+                publicChat(&currentUser);
                 break;
             case 5:
+                system("cls");
+                system("start bin\\server.exe");
+                break;
+            case 6:
                 system("cls");
                 printf("\n==== USER LIST ====\n\n");
                 listUsers();
                 break;
 
-            case 6:
+            case 7:
                 system("cls");
                 printf("\n==== SEARCH USER ====\n\n");
                 searchUser();
                 break;
 
-            case 7:
+            case 8:
                 system("cls");
                 printf("Logged out\n");
                 *logged = false; // changes the original variable in the memory
@@ -110,7 +114,7 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
                 _getch();
                 break;
 
-            case 8:
+            case 9:
                 system("cls");
                 printf("Program Closed\n");
                 writeLog("LOGOUT", currentUser.userName);
@@ -131,8 +135,7 @@ void handleChoice(int choice, User currentUser, bool *logged, bool *running) {
         {
             case 1:
                 system("cls");
-                printf("\n==== Public Chat ====\n\n");
-                joinChat(currentUser);
+                publicChat(&currentUser);
                 break;
             case 2:
                 system("cls");

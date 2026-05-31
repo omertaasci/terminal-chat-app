@@ -55,7 +55,7 @@ void addUser() {
 
     newUser.role = ROLE_USER; // every new user is automaticly given ROLE_USER
 
-    FILE *file = fopen("users.txt", "a");
+    FILE *file = fopen("data/users.txt", "a");
 
     if (file == NULL)
     {
@@ -82,7 +82,7 @@ void editUser() {
     fgets(userToEdit, sizeof(userToEdit), stdin); // getting username from keyboard
     userToEdit[strcspn(userToEdit, "\n")] = '\0'; // removing enter end put \0
 
-    FILE *file = fopen("users.txt", "r");
+    FILE *file = fopen("data/users.txt", "r");
     FILE *tempFile = fopen("temp.txt", "w");
 
     if (file == NULL || tempFile == NULL)
@@ -153,8 +153,8 @@ void editUser() {
         return;
     }
 
-    remove("users.txt");
-    rename("temp.txt", "users.txt");
+    remove("data/users.txt");
+    rename("temp.txt", "data/users.txt");
 
     printf("\nPress any key...");
     _getch();
@@ -174,8 +174,8 @@ void deleteUser() {
     fgets(userToDelete, sizeof(userToDelete), stdin); // getting input from keyboard
     userToDelete[strcspn(userToDelete, "\n")] = '\0'; // removing \n and adds \0 to end of the string
 
-    FILE *file = fopen("users.txt", "r");
-    FILE *tempFile = fopen("temp.txt", "w");
+    FILE *file = fopen("data/users.txt", "r");
+    FILE *tempFile = fopen("data/temp.txt", "w");
 
     if (file == NULL || tempFile == NULL)
     {
@@ -223,12 +223,12 @@ void deleteUser() {
     if (!found)
     {
         printf("User not found!");
-        remove("temp.txt");
+        remove("data/temp.txt");
         return;
     }
 
-    remove("users.txt");
-    rename("temp.txt", "users.txt");
+    remove("data/users.txt");
+    rename("data/temp.txt", "data/users.txt");
     // basicly creates a temporary file and doesn't add the deleted user to this file 
     // but adds all other users and removes the original and changes the name of the temp file to original one :)
 
@@ -239,7 +239,7 @@ void deleteUser() {
 void listUsers() { // just lists the whole file for usernames
     char line[MAX_LINE];
     
-    FILE *file = fopen("users.txt", "r");
+    FILE *file = fopen("data/users.txt", "r");
 
     if (file == NULL)
     {
@@ -271,7 +271,7 @@ void searchUser() { // justs searches
     fgets(userToSearch, sizeof(userToSearch), stdin); // reads input from keyboard(stdin) to store in userToSearch
     userToSearch[strcspn(userToSearch, "\n")] = '\0'; // removes the \n and puts \0 in the end of the string
 
-    FILE *file = fopen("users.txt", "r");
+    FILE *file = fopen("data/users.txt", "r");
 
     if (file == NULL)
     {

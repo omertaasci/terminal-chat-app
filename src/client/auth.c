@@ -12,7 +12,7 @@
 
 void writeLog(const char *message, const char *userName) // log system
 {
-    FILE *logFile = fopen("log.txt", "a");
+    FILE *logFile = fopen("data/log.txt", "a");
 
     if (logFile == NULL)
         return;
@@ -29,7 +29,7 @@ bool userNameExists(char userName[]) { // this function checks if the username a
     FILE *file; // declaring the file
     char line[MAX_LINE]; // this string stores one line from the file temporarily. for example first stores 1st line admin:31 then changes to 2nd line test:31 etc
 
-    file = fopen("users.txt", "r"); // opening users.txt with read permission
+    file = fopen("data/users.txt", "r"); // opening users.txt with read permission
 
     if (file == NULL) // if file is empty return false
     {
@@ -58,7 +58,7 @@ bool checkPassword(char userName[], char userPassword[]) { // checks if the pass
     FILE *file; 
     char line[MAX_LINE]; // stores the readed line from the file
 
-    file = fopen("users.txt", "r"); // opens file with read permission
+    file = fopen("data/users.txt", "r"); // opens file with read permission
 
     if (file == NULL) // if empty return false
     {
@@ -130,7 +130,7 @@ bool login(User *currentUser) {
 
     if (checkPassword(currentUser->userName, password))
     {
-        FILE *file = fopen("users.txt", "r");
+        FILE *file = fopen("data/users.txt", "r");
         char line[MAX_LINE]; // stores the readed line from the file
 
         while (fgets(line, sizeof(line), file)) { // fgets reads a line from the file. fgets([where to store], [max size], [from which file]);

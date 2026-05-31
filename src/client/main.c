@@ -1,13 +1,39 @@
 #include <stdio.h>
 #include <conio.h>
 #include <stdbool.h> // for using bool
+#include <windows.h>
 
 #include "auth.h"
 #include "menu.h"
 #include "config.h"
 
+
+static void setProjectRootDirectory(void)
+{
+    char exePath[MAX_PATH];
+    DWORD len = GetModuleFileNameA(NULL, exePath, MAX_PATH);
+
+    if (len == 0 || len >= MAX_PATH)
+        return;
+
+    char *lastSlash = strrchr(exePath, '\\');
+    if (lastSlash == NULL)
+        lastSlash = strrchr(exePath, '/');
+
+    if (lastSlash == NULL)
+        return;
+
+    *lastSlash = '\0';
+
+    char rootPath[MAX_PATH];
+    if (snprintf(rootPath, MAX_PATH, "%s\\..", exePath) <= 0)
+        return;
+
+    SetCurrentDirectoryA(rootPath);
+}
+
 int main(){
-    
+    setProjectRootDirectory();
 
     User currentUser; // logged will pass this to login function
 

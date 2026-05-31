@@ -1,5 +1,3 @@
-AI SAYS 
-
 ERROR LIST
 - if you put anything else then choices in menu it crashes ==== FIXED ====
 - when adding user if username is longer then limit it only gets until limit then cuts the rest ==== FIXED ====
@@ -20,93 +18,69 @@ CORE FEATURES
 8 - failed login limit ==== DONE ====
 9 - chat system
 10 - log system ==== DONE ====
+11 - user profiles
+12 - friend system
+13 - dm system
+14 - private room system
+15 - voice chat
+16 - password hash
+17 - real database instead of txt file
+18 - terminal ui
+19 - video call
+20 - sending files
 
 
 CODE QUALITY
 ------------
-13 - split project into modules (.c / .h) ==== DONE ====
-14 - create User struct ==== DONE ====
-15 - improve input validation ==== DONE ====
-16 - replace scanf with fgets ==== DONE ====
-17 - error handling system
-18 - create utility functions
-19 - remove duplicated code
-20 - dynamic memory practice (malloc/free)
-
-
-FILE SYSTEM
------------
-21 - backup users.txt
-22 - export users
-23 - import users
-24 - temporary file system for edits
-25 - configurable file paths
-26 - separate logs.txt
-27 - separate config.txt
+1 - split project into modules (.c / .h) ==== DONE ====
+2 - create User struct ==== DONE ====
+3 - improve input validation ==== DONE ====
+4 - replace scanf with fgets ==== DONE ====
+5 - error handling system
+6 - create utility functions
+7 - remove duplicated code
+8 - dynamic memory practice (malloc/free)
 
 
 ADMIN FEATURES
 --------------
-28 - admin-only menu ==== DONE ====
-29 - permission checks ==== DONE ====
-30 - change user role
-31 - disable/enable user
-32 - reset password
-33 - user statistics
-34 - count failed logins ==== DONE ====
+1 - admin-only menu ==== DONE ====
+2 - permission checks ==== DONE ====
+3 - change user role
+4 - disable/enable user
+5 - reset password
+6 - user statistics
+7 - count failed logins ==== DONE ====
 
 
 SECURITY
 --------
-35 - hidden password input ==== DONE ====
-36 - session system ==== DONE ====
-37 - auto logout after inactivity
-38 - password retry cooldown
-39 - detect duplicate accounts
-40 - sanitize user input ==== DONE ====
+1 - hidden password input ==== DONE ====
+2 - session system ==== DONE ====
+3 - auto logout after inactivity
+4 - password retry cooldown
+5 - detect duplicate accounts
+6 - sanitize user input ==== DONE ====
+7 - password hashing
 
 
 ADVANCED C FEATURES
 -------------------
-41 - linked list user storage
-42 - binary file version
-43 - sorting users
-44 - save/load structs
-45 - enums for roles
-46 - function pointers practice
-47 - command parser
-48 - custom string library practice
+1 - linked list user storage
+2 - binary file version
+3 - sorting users
+4 - save/load structs
+5 - enums for roles
+6 - function pointers practice
+7 - command parser
+8 - custom string library practice
 
 
 NETWORKING (NEXT LEVEL)
 -----------------------
-49 - tcp login server
-50 - tcp client
-51 - multi-client support
-52 - send login requests over network
-53 - server logs
-54 - simple chat between users
-
-
-LINUX / TOOLING
----------------
-55 - Makefile
-56 - gcc warning flags
-57 - valgrind memory checks
-58 - git + github
-59 - README.md
-60 - project folder structure
-
-
-BONUS
------
-61 - sqlite version
-62 - ncurses terminal ui
-63 - colored terminal output
-64 - command history
-65 - mini shell commands
-66 - json export
-67 - unit tests
-68 - benchmark login speed
-69 - dockerize project
-70 - build for linux + windows
+1 - tcp login server
+2 - tcp client
+3 - multi-client support
+4 - send login requests over network
+5 - server logs
+6 - simple chat between users

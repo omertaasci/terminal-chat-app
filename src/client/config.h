@@ -7,6 +7,7 @@
 #define MAX_LINE_CHAT 300
 #define MAX_ATTEMPTS 3
 #define MAX_MESSAGE 1024
+#define MAX_CLIENTS 2
 
 
 #define USER_SCAN "19"

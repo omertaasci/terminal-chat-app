@@ -1,9 +1,10 @@
 ERROR LIST
 - if you put anything else then choices in menu it crashes ==== FIXED ====
 - when adding user if username is longer then limit it only gets until limit then cuts the rest ==== FIXED ====
+- when someone disconnects from server server shuts down
 
-29/05/2026 ---->>> DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT :) ==== DONE ====
-01/06/2026 ---->>> DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT, if possible complete the chat system
+DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT :) ==== DONE ====
+DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT, if possible complete the chat system
 
 
 CORE FEATURES

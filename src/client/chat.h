@@ -5,6 +5,8 @@
 #include "config.h"
 
 typedef struct {
+    int type;
+
     char username[MAX_USERNAME];
     char message[MAX_MESSAGE];
 } ChatMessage;

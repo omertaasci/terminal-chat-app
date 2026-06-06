@@ -1,11 +1,12 @@
 ERROR LIST
 - if you put anything else then choices in menu it crashes ==== FIXED ====
 - when adding user if username is longer then limit it only gets until limit then cuts the rest ==== FIXED ====
-- when someone disconnects from server server shuts down
+- when someone disconnects from server server shuts down ==== FIXED ====
+- when server is full its not showing server full to user that is trying to connect
 
 DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT :) ==== DONE ====
 DOCUMENT THE CODE AND TRY TO LEARN AND UNDERSTAND IT, if possible complete the chat system ==== DONE ====
-Instead of Client disconnected show (username) Disconnected and show it for all the users
+Instead of Client disconnected or connected show (username) and show it for all the users ==== DONE ====
 
 
 CORE FEATURES
@@ -20,69 +21,7 @@ CORE FEATURES
 8 - failed login limit ==== DONE ====
 9 - chat system ==== DONE ====
 10 - log system ==== DONE ====
-11 - user profiles
-17 - real database instead of txt file
-16 - password hash
-12 - friend system
-13 - dm system
-14 - private room system
-15 - voice chat
-18 - terminal ui
-19 - video call
-20 - sending files
-
-
-CODE QUALITY
-------------
-1 - split project into modules (.c / .h) ==== DONE ====
-2 - create User struct ==== DONE ====
-3 - improve input validation ==== DONE ====
-4 - replace scanf with fgets ==== DONE ====
-5 - error handling system
-6 - create utility functions
-7 - remove duplicated code
-8 - dynamic memory practice (malloc/free)
-
-
-ADMIN FEATURES
---------------
-1 - admin-only menu ==== DONE ====
-2 - permission checks ==== DONE ====
-3 - change user role
-4 - disable/enable user
-5 - reset password
-6 - user statistics
-7 - count failed logins ==== DONE ====
-
-
-SECURITY
---------
-1 - hidden password input ==== DONE ====
-2 - session system ==== DONE ====
-3 - auto logout after inactivity
-4 - password retry cooldown
-5 - detect duplicate accounts
-6 - sanitize user input ==== DONE ====
-7 - password hashing
-
-
-ADVANCED C FEATURES
--------------------
-1 - linked list user storage
-2 - binary file version
-3 - sorting users
-4 - save/load structs
-5 - enums for roles
-6 - function pointers practice
-7 - command parser
-8 - custom string library practice
-
-
-NETWORKING (NEXT LEVEL)
------------------------
-1 - tcp login server
-2 - tcp client
-3 - multi-client support
-4 - send login requests over network
-5 - server logs
-6 - simple chat between users
+11 - online users ==== DONE ====
+13 - password hash
+14 - dm system
+15 - better ui

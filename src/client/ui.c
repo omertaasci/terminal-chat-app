@@ -111,7 +111,15 @@ void drawMessages()
 
 void drawUsers()
 {
+    for(int y = 0; y < USER_HEIGHT - 2; y++)
+    {
+        gotoXY(USER_X + 1, USER_Y + 1 + y);
+
+        printf("%-23s", "");
+    }
+
     gotoXY(USER_X + 2, USER_Y + 1);
+
     printf("ONLINE USERS");
 
     for(int i = 0; i < onlineUserCount; i++)

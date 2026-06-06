@@ -7,6 +7,34 @@
 
 SOCKET clients[MAX_CLIENTS];
 int clientCount = 0;
+char onlineUsers[MAX_CLIENTS][MAX_USERNAME];
+
+void sendUserList() {
+    ChatMessage msg;
+
+    strcpy(msg.username, "SERVER");
+
+    msg.type = 1; // user list type
+
+    msg.message[0] = '\0';
+
+    for (int i = 0; i < clientCount; i++)
+    {
+        strcat(msg.message, onlineUsers[i]);
+
+        if (i < clientCount - 1)
+        {
+            strcat(msg.message, ",");
+        }       
+    }
+
+    for (int i = 0; i < clientCount; i++)
+    {
+        send(clients[i], (char*)&msg, sizeof(msg), 0);
+    }
+    
+    
+}
 
 void broadcastMessage(ChatMessage *msg, SOCKET sender) // send the msg to all of the users except sender
 {
@@ -30,7 +58,9 @@ void removeClient(SOCKET client) { // remove disconnected client from the list
         if (clients[i] == client)
         {
             clients[i] = clients[clientCount - 1];
+            strcpy(onlineUsers[i], onlineUsers[clientCount - 1]);
             clientCount--;
+            sendUserList();
             break;
         }
         
@@ -43,16 +73,41 @@ DWORD WINAPI handleClient(LPVOID lpParam) { // Handles one client connection in 
     SOCKET client = (SOCKET)lpParam; // Get the client socket from thread parameter
 
     ChatMessage msg; // Stores incoming message data
+    ChatMessage sysMsg;
     int len; // Stores how many bytes were received
 
     // first message = username
     len = recv(client, (char*)&msg, sizeof(msg), 0);
+    msg.type = 0;
+
     if (len <= 0)
     {
         closesocket(client);
         return 0;
     }
-    printf("%s connected!\n", msg.username);
+    printf("%s connected.\n", msg.username);
+
+    // user connected broadcast for all users
+    sysMsg.type = 0;
+    strcpy(sysMsg.username, "SYSTEM");
+    sprintf(sysMsg.message, "%s connected.\n", msg.username);
+    broadcastMessage(&sysMsg, INVALID_SOCKET);
+
+    char currentUsername[MAX_USERNAME];
+    strcpy(currentUsername, msg.username);
+
+    for (int i = 0; i < clientCount; i++) // adding user to onlineUsers
+    {
+        if (clients[i] == client)
+        {
+            strcpy(onlineUsers[i], msg.username);
+            break;
+        }
+        
+    }
+
+    sendUserList();
+    
 
     while (1) // Keep listening to client messages forever
     {
@@ -63,8 +118,15 @@ DWORD WINAPI handleClient(LPVOID lpParam) { // Handles one client connection in 
 
         if (len <= 0) // If recv returns 0 or less or client disconnected or an error happened
         {
-            printf("\%s disconnected!", msg.username);
+            printf("\n%s disconnected.", currentUsername);
             removeClient(client); // Remove client from clients array
+
+            // user disconnected broadcast for all users
+            sysMsg.type = 0;
+            strcpy(sysMsg.username, "SYSTEM");
+            sprintf(sysMsg.message, "%s disconnected.\n", msg.username);
+            broadcastMessage(&sysMsg, INVALID_SOCKET);
+
             break;
         }
 
@@ -95,7 +157,7 @@ int main(void) {
     bind(server, (struct sockaddr*)&addr, sizeof(addr)); // Attach socket to IP address and port
     listen(server, 5);  // server starts listening for incoming connections, allowing up to 5 pending connection
 
-    printf("Waiting for connection...");
+    printf("Waiting for connection...\n");
 
     while (1) // Keep server running forever
     {

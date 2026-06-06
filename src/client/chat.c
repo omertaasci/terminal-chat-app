@@ -25,7 +25,29 @@ DWORD WINAPI receiveMessages(LPVOID lpParam) { // Thread function that constantl
             break;
         }
 
-        addMessage(msg.username, msg.message); // Add received message to chat
+        if (msg.type == 1)
+        {
+            char users[MAX_USERS][MAX_USERNAME];
+
+            int count = 0;
+
+            char* token = strtok(msg.message, ",");
+
+            while (token != NULL)
+            {
+                strcpy(users[count], token);
+
+                count++;
+
+                token = strtok(NULL, ",");
+            }
+
+            setUsers(users, count);
+        }
+        else
+        {
+            addMessage(msg.username, msg.message); // Add received message to chat
+        }
         
     }
     
@@ -60,6 +82,7 @@ void publicChat(User *currentUser) {
     }
 
     strcpy(msg.username, currentUser->userName); // msg.username = currentuser.username
+    msg.type = 0;
     msg.message[0] = '\0'; // empty message
     send(sock, (char*)&msg, sizeof(msg), 0); // sends it just to get the username when user connects to server
 
@@ -85,7 +108,7 @@ void publicChat(User *currentUser) {
         inputMessage(msg.message, sizeof(msg.message)); // Get message input from user
 
         strcpy(msg.username, currentUser->userName); // Copy current username into message struct
-        
+        msg.type = 0;
         if (strcmp(msg.message, "/exit") == 0) // If user types /exit
         {
             printf("Disconnected! \nPress any key.");

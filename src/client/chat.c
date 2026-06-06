@@ -6,24 +6,26 @@
 
 #include "chat.h"
 #include "user.h"
+#include "ui.h"
 
-DWORD WINAPI receiveMessages(LPVOID lpParam) {
-    SOCKET sock = (SOCKET)lpParam;
 
-    ChatMessage msg;
-    int len;
+DWORD WINAPI receiveMessages(LPVOID lpParam) { // Thread function that constantly receives messages from server
+    SOCKET sock = (SOCKET)lpParam; // Convert thread parameter into socket variable
 
-    while (1)
+    ChatMessage msg; // Stores received message data
+    int len; // Stores how many bytes were received
+
+    while (1) // Keep listening for messages forever
     {
-        len = recv(sock, (char*)&msg, sizeof(msg), 0);
+        len = recv(sock, (char*)&msg, sizeof(msg), 0); // Receive message data from server socket
 
-        if (len <= 0)
+        if (len <= 0) // If recv returns 0 or less or client disconnected or an error happened
         {
             printf("\nDisconnected from server!");
             break;
         }
 
-        printf("\n%s: %s\n", msg.username, msg.message);
+        addMessage(msg.username, msg.message); // Add received message to chat
         
     }
     
@@ -32,23 +34,23 @@ DWORD WINAPI receiveMessages(LPVOID lpParam) {
 }
 
 void publicChat(User *currentUser) {
-    WSADATA wsa; // WSAStartup() stores Winsock information in this struct.
+    WSADATA wsa; // Stores Winsock startup information
     SOCKET sock; // socket handle
-    struct sockaddr_in server; // stores an IPv4 address and port number
+    struct sockaddr_in server; // Stores server IP address and port information
 
     ChatMessage msg;
 
 
-    WSAStartup(MAKEWORD(2,2), &wsa);; // Initialize the windows socket library before using sockets
+    WSAStartup(MAKEWORD(2,2), &wsa);; // Start Winsock library before using sockets
     // MAKEWORD(2,2) means use winsock version 2.2
 
     sock = socket(AF_INET, SOCK_STREAM, 0); // creates an ipv4 tcp socket
 
     server.sin_family = AF_INET; // use ipv4
-    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server.sin_addr.s_addr = inet_addr("127.0.0.1"); // Connect to localhost
     server.sin_port = htons(5000); // use port 5000 (converted to network byte order)
 
-    if (connect(sock, (struct sockaddr*)&server, sizeof(server)) < 0)
+    if (connect(sock, (struct sockaddr*)&server, sizeof(server)) < 0) // Try connecting to the chat server
     {
         printf("Server is offline!\n");
         closesocket(sock);
@@ -57,6 +59,12 @@ void publicChat(User *currentUser) {
         return;
     }
 
+    strcpy(msg.username, currentUser->userName); // msg.username = currentuser.username
+    msg.message[0] = '\0'; // empty message
+    send(sock, (char*)&msg, sizeof(msg), 0); // sends it just to get the username when user connects to server
+
+    // Create separate thread for receiving messages
+    // So receiving and sending can happen at the same time
     CreateThread(
         NULL,
         0,
@@ -66,31 +74,33 @@ void publicChat(User *currentUser) {
         NULL
     );
 
-    printf("Connected to server!");
-    printf("\nWelcome %s\n", currentUser->userName);
+    initUI();
+
+    addMessage("SYSTEM", "Connected to server");
 
     
 
-    while (1)
+    while (1) // Keep chat running forever
     {
-        printf("\nMessage : ");
-        fgets(msg.message, sizeof(msg.message), stdin); // message input from keyboard
-        msg.message[strcspn(msg.message, "\n")] = '\0';
+        inputMessage(msg.message, sizeof(msg.message)); // Get message input from user
 
-        strcpy(msg.username, currentUser->userName);
+        strcpy(msg.username, currentUser->userName); // Copy current username into message struct
         
-        if (strcmp(msg.message, "/exit") == 0)
+        if (strcmp(msg.message, "/exit") == 0) // If user types /exit
         {
             printf("Disconnected! \nPress any key.");
             break;
         }
 
 
-        if (send(sock, (char*)&msg, sizeof(msg), 0) == SOCKET_ERROR)
+        if (send(sock, (char*)&msg, sizeof(msg), 0) == SOCKET_ERROR) // Try to send message to server
         {
-            printf("Failed to send message!\n");
+            // if failed show error message in chat
+            addMessage("SYSTEM", "Failed to send message");
             break;
         }
+
+        addMessage(currentUser->userName, msg.message); // Add own message to local chat window
     }
     
 

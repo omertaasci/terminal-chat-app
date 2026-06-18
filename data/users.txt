@@ -1,4 +1,2 @@
 admin:31:1
-Anya:31:0
-Szarka:Anya14:0
-yarrak:31:0
+CoolUser:31:0

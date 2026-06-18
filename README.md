@@ -152,16 +152,6 @@ Possible improvements:
 * Add command-based chat features
 * Add cross-platform socket support
 
-## Screenshots
-
-Screenshots can be added here later.
-
-```md
-![Login screen](<img width="1096" height="578" alt="login" src="https://github.com/user-attachments/assets/088dcc7b-5a8f-472b-92c2-a0dfac4e8bfe" />)
-![Chat screen](<img width="1097" height="575" alt="chat" src="https://github.com/user-attachments/assets/2de2f34b-6f52-43ef-87b7-67fb28fadc29" />)
-![Admin menu](<img width="1100" height="579" alt="admin" src="https://github.com/user-attachments/assets/a7494e9a-fc55-4132-a521-3cdf6b0d6b3c" />)
-```
-
 ## Project Status
 
 The core version of the project is complete. The application supports user login, role-based actions, admin user management, multi-client chat and server logging.
